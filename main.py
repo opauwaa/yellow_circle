@@ -12,12 +12,14 @@ class MyWidget(QWidget):
         uic.loadUi('UI.ui', self)
         self.setFixedSize(self.size())
         self.pushButton.clicked.connect(self.run)
+        self.go = False
 
     def paintEvent(self, event):
-        qp = QPainter()
-        qp.begin(self)
-        self.draw_circle(qp)
-        qp.end()
+        if self.go:
+            qp = QPainter()
+            qp.begin(self)
+            self.draw_circle(qp)
+            qp.end()
 
     def draw_circle(self, qp):
         r = randint(10, 200)
@@ -29,6 +31,7 @@ class MyWidget(QWidget):
         qp.drawEllipse(QPoint(300, 300), r, r)
 
     def run(self):
+        self.go = True
         self.repaint()
 
 
